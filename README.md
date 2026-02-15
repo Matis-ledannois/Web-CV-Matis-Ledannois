@@ -4,11 +4,14 @@ Interactive online CV built as a **single-page web application** to showcase my 
 
 🔗 Designed to provide recruiters with a dynamic and engaging way to explore my profile.
 
+<img width="1424" height="911" alt="Capture d&#39;écran 2026-02-15 133942" src="https://github.com/user-attachments/assets/85864a7a-272b-46c7-afb8-d680fe641b52" />
+
 ---
 
 ## 🚀 Live Overview
 
 This project is an interactive dashboard-style CV featuring:
+
 
 - 📌 Sticky navigation bar
 - 🕒 Expandable professional experience timeline
@@ -17,6 +20,7 @@ This project is an interactive dashboard-style CV featuring:
 - 🎨 Modern UI built with Tailwind CSS
 
 ---
+<img width="1251" height="702" alt="Capture d&#39;écran 2026-02-15 134000" src="https://github.com/user-attachments/assets/0bda7304-ca44-4356-a224-62970cb9fd81" />
 
 ## 🛠️ Technologies Used
 
@@ -32,8 +36,9 @@ This project is an interactive dashboard-style CV featuring:
 ## 📂 Project Structure
 
 ```
-CVonlineRobotique.html
+index.html
 README.md
+document.js
 ```
 
 This project is fully contained in a single HTML file for simplicity and portability.
@@ -81,7 +86,7 @@ This CV was created to:
 You can open the file locally by simply double-clicking:
 
 ```
-CVonlineRobotique.html
+index.html
 ```
 
 Or host it using:
@@ -96,7 +101,7 @@ Or host it using:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/your-repository-name.git
+git clone https://github.com/Matis-ledannois/Web-CV-Matis-Ledannois.git
 ```
 
 2. Open the HTML file in your browser.
@@ -108,10 +113,8 @@ No installation required — all libraries are loaded via CDN.
 ## 📬 Contact
 
 **Matis Ledannois**  
-📍 Lille, France  
-📧 ledannoismatis@gmail.com  
+📍 France  
 🔗 GitHub: https://github.com/Matis-ledannois  
-🔗 LinkedIn: https://www.linkedin.com/in/matis-ledannois/
 
 ---
 
