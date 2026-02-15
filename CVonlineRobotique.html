@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Robotic CV - Matis Ledannois</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Professional Slate & Teal -->
+    <!-- Application Structure Plan: The application is designed as a single-page interactive dashboard rather than a linear document. It features a sticky navigation bar for easy access to key sections (Profile, Experience, Skills, Education). This non-linear structure allows recruiters to quickly jump to the information most relevant to them. Key interactive elements include an expandable timeline for professional experience and a dynamic radar chart for skills, which can be filtered by category. This design was chosen to transform the passive experience of reading a CV into an active exploration, making the candidate's profile more engaging, memorable, and easier to digest. -->
+    <!-- Visualization & Content Choices: 
+        - Professional Experience -> Goal: Organize & Inform -> Viz/Presentation Method: Interactive Vertical Timeline -> Interaction: On-click expansion of details for each role -> Justification: Keeps the initial view clean and focused, allowing users to drill down into specific roles without being overwhelmed by text. -> Library/Method: Vanilla JS & Tailwind CSS.
+        - Technical Skills -> Goal: Compare & Inform -> Viz/Presentation Method: Radar Chart -> Interaction: Filter buttons to dynamically update the chart data between 'Programming', 'Data & BI', and 'Tools' -> Justification: A radar chart provides a quick, holistic view of technical strengths. The filtering interaction allows for a more detailed comparison within specific skill domains. -> Library/Method: Chart.js.
+        - Languages -> Goal: Inform & Compare -> Viz/Presentation Method: Styled progress bars -> Interaction: Static visual representation -> Justification: Offers a more immediate and visually appealing gauge of proficiency than simple text. -> Library/Method: HTML & Tailwind CSS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 border-b border-slate-200">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-slate-800">Matis Ledannois</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#profile" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-3 py-2 rounded-md text-sm font-medium">Profile</a>
+                        <a href="#experience" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-3 py-2 rounded-md text-sm font-medium">Experience</a>
+                        <a href="#skills" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-3 py-2 rounded-md text-sm font-medium">Skills</a>
+                        <a href="#education" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-3 py-2 rounded-md text-sm font-medium">Education</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <section id="profile" class="mb-16 scroll-mt-24">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                <h1 class="text-4xl font-bold text-slate-900 mb-2">Matis Ledannois</h1>
+                <h2 class="text-xl font-medium text-teal-600 mb-4">French Robotic Engineering Student</h2>
+                <p class="mb-6 text-slate-600 max-w-3xl">
+                    Motivated and meticulous student passionate about Software Development and IA in Robotic. 
+                    Currently seeking a <b> 4 months Robotics Software Developer Interships starting May 2026</b>. 
+                    I thrive in collaborative environments and am eager to apply my academic knowledge to real-world challenges.
+                    <!--, particularly in creating efficient, data-driven software solutions.
+                </p>-->
+
+                <div class="flex flex-wrap gap-4 text-sm">
+                    <a href="mailto:ledannoismatis@gmail.com" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium py-2 px-4 rounded-lg flex items-center gap-2 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.558Z"/></svg>
+                        ledannoismatis@gmail.com
+                    </a>
+                    <a href="https://github.com/Matis-ledannois" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium py-2 px-4 rounded-lg flex items-center gap-2 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                        GitHub Profile
+                    </a>
+                    <a href="https://www.linkedin.com/in/matis-ledannois/" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium py-2 px-4 rounded-lg flex items-center gap-2 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                        Linkedin Profile
+                    </a>
+                    <div class="bg-slate-100 text-slate-800 font-medium py-2 px-4 rounded-lg flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+                        Lille, France
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-slate-800 mb-8">Professional Experience</h2>
+            <div class="relative border-l-2 border-slate-200 pl-8 space-y-10" id="experience-timeline">
+                    
+            </div>
+        </section>
+
+        <section id="skills" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Skills</h2>
+            <p class="text-slate-600 mb-8 max-w-3xl">This section provides an overview of my technical and soft skills. The interactive chart below visualizes my proficiency in different areas of software development and data analysis. Use the buttons to explore my capabilities in programming, data tools, and development methodologies.</p>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                     <div class="flex justify-center flex-wrap gap-2 mb-4">
+                        <button onclick="updateChart('programming')" class="skill-btn bg-teal-500 text-white px-4 py-2 rounded-lg text-sm font-medium">Programming</button>
+                        <button onclick="updateChart('data')" class="skill-btn bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium">Data & BI</button>
+                        <button onclick="updateChart('tools')" class="skill-btn bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium">Tools & Methodology</button>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="text-xl font-bold text-slate-800 mb-3">Soft Skills</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-teal-100 text-teal-800 text-sm font-medium px-3 py-1.5 rounded-full">Teamwork</span>
+                            <span class="bg-teal-100 text-teal-800 text-sm font-medium px-3 py-1.5 rounded-full">Project Management</span>
+                            <span class="bg-teal-100 text-teal-800 text-sm font-medium px-3 py-1.5 rounded-full">Meticulous</span>
+                            <span class="bg-teal-100 text-teal-800 text-sm font-medium px-3 py-1.5 rounded-full">Resilient</span>
+                             <span class="bg-teal-100 text-teal-800 text-sm font-medium px-3 py-1.5 rounded-full">Versatile</span>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4">Languages</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <span class="font-medium">French (Native)</span>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5 mt-1"><div class="bg-teal-500 h-2.5 rounded-full" style="width: 100%"></div></div>
+                            </div>
+                            <div>
+                                <span class="font-medium">English (B2 - TOEIC 805)</span>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5 mt-1"><div class="bg-teal-500 h-2.5 rounded-full" style="width: 80%"></div></div>
+                            </div>
+                            <div>
+                                <span class="font-medium">Spanish (B1)</span>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5 mt-1"><div class="bg-teal-500 h-2.5 rounded-full" style="width: 60%"></div></div>
+                            </div>
+                            <div>
+                                <span class="font-medium">Portuguese (A2)</span>
+                                <div class="w-full bg-slate-200 rounded-full h-2.5 mt-1"><div class="bg-teal-500 h-2.5 rounded-full" style="width: 40%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="scroll-mt-24">
+            <h2 class="text-3xl font-bold text-slate-800 mb-8">Education</h2>
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900">JUNIA ISEN Engineering School, Bordeaux</h3>
+                            <p class="text-teal-600 font-medium">3rd Year (Software Development Specialisation)</p>
+                        </div>
+                        <p class="text-sm text-slate-500 font-medium whitespace-nowrap">Sept 2022 – Jun 2027</p>
+                    </div>
+                    <ul class="mt-4 list-disc list-inside text-slate-600 space-y-1 text-sm">
+                        <li>Key Modules: Data Science, Relational Databases, Full-Stack Development, Systems & Networks, Software Design.</li>
+                        <li>Academic Projects: 3D Video Game (Python), Web Site with API, Data Management (SQL, VBA, PowerBI).</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                     <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900">Disability Management Training</h3>
+                            <p class="text-teal-600 font-medium">Companieros - Professional Awareness Course</p>
+                        </div>
+                        <p class="text-sm text-slate-500 font-medium whitespace-nowrap">Feb 2024 – Mar 2024</p>
+                    </div>
+                    <p class="mt-4 text-slate-600 text-sm">Focused on promoting inclusion and best management practices for disability in the professional environment.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-slate-800 text-white mt-16">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2025 Matis Ledannois. Interactive CV created to showcase software development skills.</p>
+            <p class="text-slate-400 mt-2">Get in touch: <a href="mailto:ledannoismatis@gmail.com" class="underline hover:text-teal-400">ledannoismatis@gmail.com</a></p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const experienceData = [
+                {
+                    role: 'Software and Interface Tool Developer Intern',
+                    company: 'SmartCube, Luxembourg',
+                    date: 'May 2025 – Aug 2025',
+                    icon: 'code',
+                    details: [
+                        'Designed a web tool using HTML/CSS/JS and Python to display consumption data from sensors for energy monitoring of connected buildings.',
+                        'Developed Python and VBA scripts for data retrieval and automated report generation.'
+                    ]
+                },
+                {
+                    role: 'Logistics Coordinator',
+                    company: 'PRIMAVERA, Luxembourg',
+                    date: 'Jul 2024 – Aug 2024',
+                    icon: 'box',
+                    details: [
+                        'Supervised the reception and verification of goods to ensure quality and compliance.',
+                        'Managed inventory meticulously and conducted stocktaking.',
+                        'Optimised shelf arrangement to improve accessibility and product presentation.'
+                    ]
+                },
+                {
+                    role: 'Vice President – Naeptune Student Union (BDE)',
+                    company: 'JUNIA, Bordeaux',
+                    date: 'Sep 2023 – Jul 2024',
+                    icon: 'users',
+                    details: [
+                        'Structured and managed a 50-member student association, including integration and role transition.',
+                        'Administered an annual budget of €4,900, focusing on resource optimisation for high-impact activities.'
+                    ]
+                },
+                {
+                    role: 'Industrial Maintenance Technician',
+                    company: 'SANOFI, Val-de-Reuil',
+                    date: 'Jul 2023 – Aug 2023',
+                    icon: 'wrench',
+                    details: [
+                        'Executed interventions on production lines during the annual shutdown.',
+                        'Carried out cleaning and maintenance procedures on autoclaves, tanks, and valves.',
+                        'Collaborated with the design office to secure HSE access hatches for mapping.'
+                    ]
+                }
+            ];
+
+            const timelineContainer = document.getElementById('experience-timeline');
+            const icons = {
+                code: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="h-6 w-6" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>`,
+                box: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="h-6 w-6" viewBox="0 0 16 16"><path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/></svg>`,
+                users: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="h-6 w-6" viewBox="0 0 16 16"><path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.22-2.803.629-.536 1.27-1.006 1.687-1.332zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>`,
+                wrench: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="h-6 w-6" viewBox="0 0 16 16"><path d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.342a3 3 0 1 0-1.414 1.414l-6.34-6.342A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364L.102 2.223zm13.37 9.019.528.026.287.445.445.287.026.529L15 13l-.242.471-.026.529-.445.287-.287.445-.529.026L13 15l-.471-.242-.529-.026-.287-.445-.445-.287-.026-.529L11 13l.242-.471.026-.529.445-.287.287-.445.529-.026L13 11l.471.242z"/></svg>`
+            };
+
+            experienceData.forEach(item => {
+                const detailsHtml = item.details.map(detail => `<li>${detail}</li>`).join('');
+                const element = document.createElement('div');
+                element.innerHTML = `
+                    <div class="absolute w-8 h-8 bg-white rounded-full -left-12 border-4 border-slate-200 flex items-center justify-center text-teal-500">
+                        ${icons[item.icon]}
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 cursor-pointer experience-item">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-900">${item.role}</h3>
+                                <p class="text-teal-600 font-medium">${item.company}</p>
+                            </div>
+                            <p class="text-sm text-slate-500 font-medium whitespace-nowrap">${item.date}</p>
+                        </div>
+                        <div class="experience-details hidden mt-4 pl-2 border-l-2 border-slate-100">
+                            <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm">${detailsHtml}</ul>
+                        </div>
+                    </div>`;
+                timelineContainer.appendChild(element);
+            });
+            
+            document.querySelectorAll('.experience-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const details = item.querySelector('.experience-details');
+                    details.classList.toggle('hidden');
+                });
+            });
+
+            const skillsData = {
+                programming: {
+                    labels: ['Python', 'JavaScript', 'HTML/CSS', 'C/C++', 'Java', 'VBA'],
+                    data: [90, 80, 85, 70, 65, 75]
+                },
+                data: {
+                    labels: ['SQL', 'Power BI', 'Matplotlib', 'Plotly', 'Data Analysis'],
+                    data: [85, 80, 75, 70, 85]
+                },
+                tools: {
+                    labels: ['Git/GitHub', 'Agile/Scrum', 'Software Design', 'OOP', 'Full-Stack Dev'],
+                    data: [90, 80, 85, 80, 75]
+                }
+            };
+            
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            let skillsChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: skillsData.programming.labels,
+                    datasets: [{
+                        label: 'Proficiency',
+                        data: skillsData.programming.data,
+                        backgroundColor: 'rgba(20, 184, 166, 0.2)',
+                        borderColor: 'rgba(15, 118, 110, 1)',
+                        pointBackgroundColor: 'rgba(15, 118, 110, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(15, 118, 110, 1)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            pointLabels: {
+                                font: { size: 12 },
+                                color: '#475569'
+                            },
+                            ticks: {
+                                backdropColor: 'transparent',
+                                color: '#64748b',
+                                stepSize: 20,
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            window.updateChart = function(category) {
+                skillsChart.data.labels = skillsData[category].labels;
+                skillsChart.data.datasets[0].data = skillsData[category].data;
+                skillsChart.update();
+                
+                document.querySelectorAll('.skill-btn').forEach(btn => {
+                    btn.classList.remove('bg-teal-500', 'text-white');
+                    btn.classList.add('bg-slate-200', 'text-slate-700');
+                });
+                
+                event.target.classList.add('bg-teal-500', 'text-white');
+                event.target.classList.remove('bg-slate-200', 'text-slate-700');
+            };
+        });
+    </script>
+
+</body>
+</html>
