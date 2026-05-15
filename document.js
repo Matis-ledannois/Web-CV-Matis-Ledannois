@@ -1,6 +1,18 @@
 document.addEventListener('DOMContentLoaded', function () {
     const experienceData = [
         {
+            role: 'Space Robotics Intern - Avionics Team',
+            company: 'I-Space, Luxembourg',
+            date: 'May 2026 – Aug 2026',
+            icon: 'code',
+            details: [
+                'Designed and prepared custom breakout boards (MIIR USB) for conductivity testing and harnessing activities.',
+                'Provided technical support during the STB integration phase for the M3P project.',
+                'Performed robotic simulations to test and benchmark various configurations and performance metrics.',
+                'Executed testing and validation protocols for embedded systems.'
+        ]
+        },
+        {
             role: 'Software and Interface Tool Developer Intern',
             company: 'SmartCube, Luxembourg',
             date: 'May 2025 – Aug 2025',
