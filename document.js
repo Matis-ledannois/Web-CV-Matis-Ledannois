@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Provided technical support during the STB integration phase for the M3P project.',
                 'Performed robotic simulations to test and benchmark various configurations and performance metrics.',
                 'Executed testing and validation protocols for embedded systems.'
-        ]
+            ]
         },
         {
             role: 'Software and Interface Tool Developer Intern',
