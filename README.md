@@ -4,7 +4,7 @@ Interactive online CV built as a **single-page web application** to showcase my 
 
 🔗 Designed to provide recruiters with a dynamic and engaging way to explore my profile.
 
-<img width="1424" height="911" alt="Capture d&#39;écran 2026-02-15 133942" src="https://github.com/user-attachments/assets/85864a7a-272b-46c7-afb8-d680fe641b52" />
+<img width="1394" height="905" alt="image" src="https://github.com/user-attachments/assets/f50b2010-32f1-439a-8aa7-ed92e29a083c" />
 
 ---
 
